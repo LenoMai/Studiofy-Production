@@ -9,7 +9,7 @@ load_dotenv()
 
 client_id = os.getenv('CLIENT_ID')
 client_secret = os.getenv('CLIENT_SECRET')
-redirect_uri = 'http://localhost:8080/callback'
+redirect_uri = 'http://localhost:5000/callback'
 
 def get_token(auth_code: str) -> str:
     auth_string = f'{client_id}:{client_secret}'

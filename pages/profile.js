@@ -38,7 +38,7 @@ function Profile() {
     };
 
     useEffect(() => {
-        fetch('http://localhost:8080/profile', {
+        fetch('http://localhost:5000/profile', {
             credentials: 'include'
         })
         .then((response) => {
@@ -56,7 +56,7 @@ function Profile() {
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:8080/top-tracks', {
+        fetch('http://localhost:5000/top-tracks', {
             credentials: 'include'
         })
         .then((response) => {

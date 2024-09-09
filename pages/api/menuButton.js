@@ -13,7 +13,7 @@ const MenuButton = ({textColor, backgroundColor, hoverBackgroundColor, hoverText
 
 
     useEffect(() => {
-        fetch('http://localhost:8080/profile', {
+        fetch('http://localhost:5000/profile', {
             credentials: 'include'
         })
         .then((response) => {
@@ -32,7 +32,7 @@ const MenuButton = ({textColor, backgroundColor, hoverBackgroundColor, hoverText
 
     const handleLogout = async () => {
         try {
-            const response = await fetch('http://localhost:8080/logout', {
+            const response = await fetch('http://localhost:5000/logout', {
                 method: 'GET',
                 credentials: 'include'
             });

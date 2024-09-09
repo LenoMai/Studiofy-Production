@@ -3,13 +3,12 @@ import styles from "../styles/login_page.module.css";
 import RandomizeLoginApt from './api/RandomizeLoginApt';
 import { DayNightContext } from './api/DayNightMode';
 import DayNightToggleButton from "./api/DayNightToggleButton";
-import MenuButton from './api/menuButton';
 
 function Index() {
 
   // Login Handler
   const handleLogin = () => {
-    window.location.href = 'http://localhost:8080/login';
+    window.location.href = 'http://localhost:5000/login';
   }
 
   // Image Randomizer GET
@@ -83,8 +82,8 @@ function Index() {
 
         <footer className={styles.footer}>
             <div className={styles.footerOptionsContainer}>
-              <Link className={styles.footerOptions}  href='/about'>ABOUT</Link>
-              <Link className={styles.footerOptions}  href='/privacy'>PRIVACY</Link>
+              <a className={styles.footerOptions}  href='/about'>ABOUT</a>
+              <a className={styles.footerOptions}  href='/privacy'>PRIVACY</a>
             </div>
 
             <a href= "mailto: studiofy.team@gmail.com" className={styles.footerEmail}>
