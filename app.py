@@ -2,6 +2,7 @@ from flask import Flask, jsonify, redirect, request, session
 from flask_cors import CORS
 from repositories import spotify_repo
 from requests import get, post
+import math
 
 app = Flask(__name__)
 app.secret_key = 'lol'
@@ -76,7 +77,7 @@ def get_user_top_tracks():
     num_tracks = len(audio_features)
 
     for k,v in feature_dict.items():
-        feature_averages_json[k] = v / num_tracks
+        feature_averages_json[k] = round(v / num_tracks,2)
 
     closest_tracks = {}
 
@@ -140,7 +141,7 @@ def get_user_top_tracks():
 
     def get_image_for_feature(feature, average):
         for(low, high, image) in image_sets.get(feature, []):
-            if low <= average < high:
+            if low <= average <= high:
                 return image
         return None
     
