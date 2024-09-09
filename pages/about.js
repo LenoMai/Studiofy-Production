@@ -1,10 +1,10 @@
 import aboutStyles from "/styles/About.module.css"
-import MenuButton from "../pages/api/menuButton";
+import MenuButton from "./api/menuButton";
 import { DayNightContext } from './api/DayNightMode';
 import DayNightToggleButton from "./api/DayNightToggleButton";
 import { useContext, useEffect, useState } from "react";
 
-function about() {
+function About() {
     const {mode, stylesList} = useContext(DayNightContext);
     const [isMounted, setIsMounted] = useState(false);
 
@@ -93,4 +93,4 @@ function about() {
   );
 }
 
-export default about
+export default About

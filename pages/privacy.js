@@ -4,7 +4,7 @@ import { DayNightContext } from './api/DayNightMode';
 import DayNightToggleButton from "./api/DayNightToggleButton";
 import { useContext, useEffect, useState } from "react";
 
-function privacy(){
+function Privacy(){
 
     const {mode, stylesList} = useContext(DayNightContext);
     const [isMounted, setIsMounted] = useState(false);
@@ -58,13 +58,13 @@ function privacy(){
                                 <li className={privacyStyles.listBullet} style={{color: stylesList.textColor}}>Monitoring and analyzing trends, usages, and activities in connection with Studiofy</li>
                             </ul>
 
-                    <h3 className={privacyStyles.detailHeader} style={{color: stylesList.textColor}}>Revoking Studiofy's Data Permissions</h3>
+                    <h3 className={privacyStyles.detailHeader} style={{color: stylesList.textColor}}>Revoking Studiofy&apos;s Data Permissions</h3>
                     <p className={privacyStyles.details} style={{color: stylesList.textColor}}>If you no longer want Studiofy to have access to your data, please visit your&nbsp; 
-                    <a href="http://www.spotify.com/account/apps/?_ga=2.57194153.2059435232.1677244602-1044990631.1616788427" style={{ color: stylesList.textColor, fontWeight: 'bold' }}>Spotify's app page</a>&nbsp;and 
-                    click "REMOVE ACCESS" on Studiofy.</p>
+                    <a href="http://www.spotify.com/account/apps/?_ga=2.57194153.2059435232.1677244602-1044990631.1616788427" style={{ color: stylesList.textColor, fontWeight: 'bold' }}>Spotify&apos;s app page</a>&nbsp;and 
+                    click &quot;REMOVE ACCESS&quot; on Studiofy.</p>
 
                      <h3 className={privacyStyles.detailHeader} style={{color: stylesList.textColor}}>Questions or Concerns?</h3>
-                    <p className={privacyStyles.details} style={{color: stylesList.textColor}}>We would love to hear your input! Please don't hesitate to contact us by reaching out to any of the developers. 
+                    <p className={privacyStyles.details} style={{color: stylesList.textColor}}>We would love to hear your input! Please don&apos;t hesitate to contact us by reaching out to any of the developers. 
                         You can find our contact information through the <a href="/about" style={{ color: stylesList.textColor, fontWeight: 'bold' }}>About</a> page or email us at <a href="mailto: studiofy.team@gmail.com" style={{ color: stylesList.textColor, fontWeight: 'bold' }}>studiofy.team@gmail.com</a>. 
                         Thank you for checking out Studiofy! 
                     </p>
@@ -77,4 +77,4 @@ function privacy(){
     )
 }
 
-export default privacy
+export default Privacy

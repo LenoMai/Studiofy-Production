@@ -6,9 +6,8 @@ import * as modernScreenshot from 'modern-screenshot';
 import MenuButton from './api/menuButton';
 import { DayNightContext } from './api/DayNightMode';
 import DayNightToggleButton from './api/DayNightToggleButton';
-// import { icon } from '@fortawesome/fontawesome-svg-core';
 
-function profile() {
+function Profile() {
     const {mode, stylesList} = useContext(DayNightContext);
     const [profile, setProfile] = useState(null);
     const [topTracks, setTopTracks] = useState([]);
@@ -156,7 +155,7 @@ function profile() {
                                 <p className={styles.titleText} style={{ color: stylesList.textColor}}>WELCOME TO STUDIOFY</p>
 
                                 <div className={styles.titleDescription} style={{color: stylesList.borderColor, backgroundColor: mode === 'day' ? '#FFFCED' : '#0F212E'}}>
-                                    <p className={styles.titleDescriptionFont} style={{ color: stylesList.textColor}}> LET'S GO ON A ROOM TOUR...</p>
+                                    <p className={styles.titleDescriptionFont} style={{ color: stylesList.textColor}}> LET&apos;S GO ON A ROOM TOUR...</p>
                                     <i className={styles.circleDown} onClick={scrollToTargetHandler} style={{ fontSize: '2vw', cursor: 'pointer', color: stylesList.iconColor, backgroundColor: mode === 'day' ? '#FFFCED' : '#0F212E' }}><FontAwesomeIcon icon={faAngleDown} /></i>
                                 </div>
                             </div>
@@ -534,4 +533,4 @@ function profile() {
     );
 }
 
-export default profile;
+export default Profile;

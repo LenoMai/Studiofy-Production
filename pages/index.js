@@ -5,7 +5,7 @@ import { DayNightContext } from './api/DayNightMode';
 import DayNightToggleButton from "./api/DayNightToggleButton";
 import MenuButton from './api/menuButton';
 
-function index() {
+function Index() {
 
   // Login Handler
   const handleLogin = () => {
@@ -83,8 +83,8 @@ function index() {
 
         <footer className={styles.footer}>
             <div className={styles.footerOptionsContainer}>
-              <a className={styles.footerOptions}  href='/about'>ABOUT</a>
-              <a className={styles.footerOptions}  href='/privacy'>PRIVACY</a>
+              <Link className={styles.footerOptions}  href='/about'>ABOUT</Link>
+              <Link className={styles.footerOptions}  href='/privacy'>PRIVACY</Link>
             </div>
 
             <a href= "mailto: studiofy.team@gmail.com" className={styles.footerEmail}>
@@ -96,4 +96,4 @@ function index() {
   );
 }
 
-export default index
+export default Index
