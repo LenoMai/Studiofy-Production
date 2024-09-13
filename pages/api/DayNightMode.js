@@ -28,8 +28,8 @@ export const DayNightMode = ({children}) => {
         const percentColor = getCssVariableVal('--color');
         const statsBoxImageSrc = mode === 'day' ? '/images/statsBox.png' : '/images/nightStatsBox.png';
         const mobileStatsBoxImageSrc = mode === 'day' ? '/images/mobileStatsBox.png' : '/images/nightMobileStatsBox.png';
-        const githubImageSrc = mode === 'day' ? '/images/dayGithub.png' : 'images/nightGithub.png'
-        const linkedinImageSrc = mode === 'day' ? '/images/dayLinkedin.png' : 'images/nightLinkedin.png'
+        const githubImageSrc = mode === 'day' ? '/images/dayGithub.png' : '/images/nightGithub.png'
+        const linkedinImageSrc = mode === 'day' ? '/images/dayLinkedin.png' : '/images/nightLinkedin.png'
         const caardImageSrc = mode === 'day' ? '/images/dayCaard.png' : '/images/nightCaard.png';
         const mailImageSrc = mode === 'day' ? '/images/dayMail.png' : '/images/nightMail.png';
         const bgSquareWindowImageSrc = mode === 'day' ? '/images/dayBgWindowSquare.png' : '/images/nightBgWindowSquare.png';

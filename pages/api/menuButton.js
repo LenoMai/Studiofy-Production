@@ -3,6 +3,7 @@ import styles from '../../styles/apt.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faBorderStyle } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
+import Link from 'next/link'
 
 const MenuButton = ({textColor, backgroundColor, hoverBackgroundColor, hoverTextColor, borderColor}) => {
     const [profile, setProfile] = useState(null);
@@ -13,7 +14,7 @@ const MenuButton = ({textColor, backgroundColor, hoverBackgroundColor, hoverText
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/profile', {
+        fetch('https://studiofy-01b981afc50a.herokuapp.com/profile', {
             credentials: 'include'
         })
         .then((response) => {
@@ -32,7 +33,7 @@ const MenuButton = ({textColor, backgroundColor, hoverBackgroundColor, hoverText
 
     const handleLogout = async () => {
         try {
-            const response = await fetch('http://localhost:5000/logout', {
+            const response = await fetch('https://studiofy-01b981afc50a.herokuapp.com/logout', {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -43,7 +44,7 @@ const MenuButton = ({textColor, backgroundColor, hoverBackgroundColor, hoverText
             window.location.href = 'https://www.spotify.com/logout/';
 
             setTimeout(function() {
-                window.location.href = 'http://localhost:3000/';
+                window.location.href = '/';
             }, 500);
         } catch (error) {
             console.error('Error:', error);
@@ -52,7 +53,7 @@ const MenuButton = ({textColor, backgroundColor, hoverBackgroundColor, hoverText
 
 
     const menuItems = [
-        {path: '/profile', label: 'Profile', show: !!profile},
+        {path: '/main', label: 'Profile', show: !!profile},
         {path: '/privacy', label: 'Privacy', show: true},
         {path: '/about', label: 'About', show: true},
         {path: '/', label: 'Logout', show: !!profile, onClick: handleLogout},
@@ -72,7 +73,7 @@ const MenuButton = ({textColor, backgroundColor, hoverBackgroundColor, hoverText
             onMouseLeave={() => setIsButtonHovered(false)}
             >
                 
-                {profile && (
+                {profile && profile.images && profile.images.length > 0 && (
                     <div className={styles.profileimg} style={{ backgroundImage: `url(${profile.images[0].url})` }}></div>
                 )}
                 
@@ -103,19 +104,20 @@ const MenuButton = ({textColor, backgroundColor, hoverBackgroundColor, hoverText
                                 }}
                                 >
                                     {item.onClick ? (
-                                        <a
+                                        <Link
                                         className={styles.menuFont}
                                         onClick={item.onClick}
+                                        href=""
                                         style={{
                                         // Style for Logout
                                             color: isItemHovered ? hoverTextColor : textColor,
                                             textDecoration: 'none',
                                             }}>
                                             <p>{item.label}</p>
-                                        </a>
+                                        </Link>
                                     ) : (
                                         item.path !== router.pathname && (
-                                            <a
+                                            <Link
                                             className={styles.menuFont}
                                             href={item.path}
                                             style={{
@@ -124,7 +126,7 @@ const MenuButton = ({textColor, backgroundColor, hoverBackgroundColor, hoverText
                                                 textDecoration: 'none',
                                                 }}>
                                                 <p>{item.label}</p>
-                                            </a>
+                                            </Link>
                                         )
                                     )}
                                 </li>

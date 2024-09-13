@@ -3,6 +3,7 @@ import privacyStyles from "../styles/privacy.module.css"
 import { DayNightContext } from './api/DayNightMode';
 import DayNightToggleButton from "./api/DayNightToggleButton";
 import { useContext, useEffect, useState } from "react";
+import Link from 'next/link';
 
 function Privacy(){
 
@@ -65,7 +66,7 @@ function Privacy(){
 
                      <h3 className={privacyStyles.detailHeader} style={{color: stylesList.textColor}}>Questions or Concerns?</h3>
                     <p className={privacyStyles.details} style={{color: stylesList.textColor}}>We would love to hear your input! Please don&apos;t hesitate to contact us by reaching out to any of the developers. 
-                        You can find our contact information through the <a href="/about" style={{ color: stylesList.textColor, fontWeight: 'bold' }}>About</a> page or email us at <a href="mailto: studiofy.team@gmail.com" style={{ color: stylesList.textColor, fontWeight: 'bold' }}>studiofy.team@gmail.com</a>. 
+                        You can find our contact information through the <Link href="/about" style={{ color: stylesList.textColor, fontWeight: 'bold' }}>About</Link> page or email us at <Link href="mailto: studiofy.team@gmail.com" style={{ color: stylesList.textColor, fontWeight: 'bold' }}>studiofy.team@gmail.com</Link>. 
                         Thank you for checking out Studiofy! 
                     </p>
                 </div>

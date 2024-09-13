@@ -6,8 +6,9 @@ import * as modernScreenshot from 'modern-screenshot';
 import MenuButton from './api/menuButton';
 import { DayNightContext } from './api/DayNightMode';
 import DayNightToggleButton from './api/DayNightToggleButton';
+import Image from 'next/image';
 
-function Profile() {
+function Main() {
     const {mode, stylesList} = useContext(DayNightContext);
     const [profile, setProfile] = useState(null);
     const [topTracks, setTopTracks] = useState([]);
@@ -17,6 +18,7 @@ function Profile() {
     const [selectedImages, setSelectedImages] = useState({});
     const [energyIcon, setEnergyIcon] = useState('');
     const [energyOpacity, setEnergyOpacity] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
 
     const aptRef = useRef(null);
     const statsRef = useRef(null);
@@ -38,7 +40,7 @@ function Profile() {
     };
 
     useEffect(() => {
-        fetch('http://localhost:5000/profile', {
+        fetch('https://studiofy-01b981afc50a.herokuapp.com/profile', {
             credentials: 'include'
         })
         .then((response) => {
@@ -56,7 +58,7 @@ function Profile() {
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:5000/top-tracks', {
+        fetch('https://studiofy-01b981afc50a.herokuapp.com/top-tracks', {
             credentials: 'include'
         })
         .then((response) => {
@@ -71,6 +73,7 @@ function Profile() {
             setFeatureAverages(data.feature_averages);
             setClosestTracks(data.closest_tracks);
             setSelectedImages(data.selected_images);
+            setIsLoading(false);
         })
         .catch((error) => {
             console.log(error);
@@ -131,8 +134,13 @@ function Profile() {
 
     
 
-    if(!profile || !topTracks || !audioFeatures || !featureAverages || !closestTracks || !selectedImages) {
-        return <h1>Loading...</h1>;
+    if(isLoading) {
+        return <h1 
+        style={{
+            display: 'flex',
+            justifyContent: 'center',
+            color: stylesList.textColor,
+        }}>Loading...</h1>;
     }
 
     return (
@@ -147,8 +155,8 @@ function Profile() {
             <body className={styles.main} style={{ backgroundColor: stylesList.backgroundColor}}>
 
                 <div>     
-                        <img className={styles.cloudLeft} src='/images/cloud.png'></img>
-                        <img className={styles.cloudRight} src='/images/cloud.png'></img>
+                        <Image className={styles.cloudLeft} src='/images/cloud.png'></Image>
+                        <Image className={styles.cloudRight} src='/images/cloud.png'></Image>
 
                         <div className={styles.titleContainer}>
                             <div className={styles.innerTitleContainer}>
@@ -170,7 +178,7 @@ function Profile() {
                         <div className={styles.statsBox}>
                             <picture>
                                 <source media="(max-width: 650px)" srcset={stylesList.mobileStatsBoxImageSrc}></source>
-                                <img src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></img>
+                                <Image src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></Image>
                             </picture>
                             <div className={styles.statsBoxHeader}>
                                 <p className={styles.roomSectionTitle} style={{color: stylesList.textColor}}>STUDIO - BEDROOM</p>
@@ -197,7 +205,7 @@ function Profile() {
                                         <p className={styles.songCloseDetails} style={{color: stylesList.textColor}}> 
                                             {truncateString(closestTracks.acousticness?.track_name, 23)} By: {truncateString(closestTracks.acousticness?.artist_names?.join(', '), 18)} 
                                         </p>
-                                        <img className={styles.albumArt} src={closestTracks.acousticness?.album_art}></img>
+                                        <Image className={styles.albumArt} src={closestTracks.acousticness?.album_art}></Image>
                                     </div>
 
                                     <div className={styles.spotifyButton}>
@@ -205,7 +213,7 @@ function Profile() {
                                     </div>
 
                                     <div className={styles.artContent}>
-                                        <img className={styles.pixelBedroom} src={selectedImages.acousticness} alt='apt_image'></img> 
+                                        <Image className={styles.pixelBedroom} src={selectedImages.acousticness} alt='apt_image'></Image> 
                                     </div>
                                 </div>
                             </div>
@@ -215,7 +223,7 @@ function Profile() {
                         <div className={styles.statsBox}>
                             <picture>
                                 <source media="(max-width: 650px)" srcset={stylesList.mobileStatsBoxImageSrc}></source>
-                                <img src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></img>
+                                <Image src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></Image>
                             </picture>
 
                             <div className={styles.statsBoxHeader}>
@@ -243,13 +251,13 @@ function Profile() {
                                         <p className={styles.songCloseDetails} style={{color: stylesList.textColor}}> 
                                             {truncateString(closestTracks.speechiness?.track_name, 23)} By: {truncateString(closestTracks.speechiness?.artist_names?.join(', '), 18)} 
                                         </p> 
-                                        <img className={styles.albumArt} src={closestTracks.speechiness?.album_art}></img>
+                                        <Image className={styles.albumArt} src={closestTracks.speechiness?.album_art}></Image>
                                     </div>
                                         <div className={styles.spotifyButton}>
                                             <a href={closestTracks.acousticness?.track_link} target='_blank' className={styles.spotifyButtonText}>Play On Spotify</a>
                                         </div>
                                     <div className={styles.artContent}>
-                                        <img className={styles.pixelOffice} src={selectedImages.speechiness} alt='apt_image'></img> 
+                                        <Image className={styles.pixelOffice} src={selectedImages.speechiness} alt='apt_image'></Image> 
                                     </div>
                                 </div>
                             </div>
@@ -259,7 +267,7 @@ function Profile() {
                         <div className={styles.statsBox}>
                             <picture>
                                 <source media="(max-width: 650px)" srcset={stylesList.mobileStatsBoxImageSrc}></source>
-                                <img src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></img>
+                                <Image src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></Image>
                             </picture>
 
                             <div className={styles.statsBoxHeader}>
@@ -287,7 +295,7 @@ function Profile() {
                                         <p className={styles.songCloseDetails} style={{color: stylesList.textColor}}>
                                             {truncateString(closestTracks.instrumentalness?.track_name, 23)} By: {truncateString(closestTracks.instrumentalness?.artist_names?.join(', '), 18)} 
                                         </p>
-                                        <img className={styles.albumArt} src={closestTracks.instrumentalness?.album_art}></img>
+                                        <Image className={styles.albumArt} src={closestTracks.instrumentalness?.album_art}></Image>
                                     </div>
 
                                     <div className={styles.spotifyButton}>
@@ -295,7 +303,7 @@ function Profile() {
                                     </div>
 
                                     <div className={styles.artContent}>
-                                        <img className={styles.pixelEntrance} src={selectedImages.instrumentalness} alt='apt_image'></img> 
+                                        <Image className={styles.pixelEntrance} src={selectedImages.instrumentalness} alt='apt_image'></Image> 
                                     </div>
                                 </div>
                             </div>
@@ -305,7 +313,7 @@ function Profile() {
                         <div className={styles.statsBox}>
                             <picture>
                                 <source media="(max-width: 650px)" srcset={stylesList.mobileStatsBoxImageSrc}></source>
-                                <img src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></img>
+                                <Image src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></Image>
                             </picture>
 
                             <div className={styles.statsBoxHeader}>
@@ -333,7 +341,7 @@ function Profile() {
                                         <p className={styles.songCloseDetails} style={{color: stylesList.textColor}}>
                                             {truncateString(closestTracks.liveness?.track_name, 23)} By: {truncateString(closestTracks.liveness?.artist_names?.join(', '), 18)} 
                                         </p>
-                                        <img className={styles.albumArt} src={closestTracks.liveness?.album_art}></img>
+                                        <Image className={styles.albumArt} src={closestTracks.liveness?.album_art}></Image>
                                     </div>
 
                                     <div className={styles.spotifyButton}>
@@ -341,7 +349,7 @@ function Profile() {
                                     </div>
 
                                     <div className={styles.artContent}>
-                                        <img className={styles.pixelKitchen} src={selectedImages.liveness} alt='apt_image'></img> 
+                                        <Image className={styles.pixelKitchen} src={selectedImages.liveness} alt='apt_image'></Image> 
                                     </div>
                                 </div>
                             </div>
@@ -351,7 +359,7 @@ function Profile() {
                         <div className={styles.statsBox}>
                             <picture>
                                 <source media="(max-width: 650px)" srcset={stylesList.mobileStatsBoxImageSrc}></source>
-                                <img src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></img>
+                                <Image src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></Image>
                             </picture>
 
                             <div className={styles.statsBoxHeader}>
@@ -379,7 +387,7 @@ function Profile() {
                                         <p className={styles.songCloseDetails} style={{color: stylesList.textColor}}>
                                             {truncateString(closestTracks.danceability?.track_name, 23)} By: {truncateString(closestTracks.danceability?.artist_names?.join(', '), 18)} 
                                         </p>
-                                        <img className={styles.albumArt} src={closestTracks.danceability?.album_art}></img>
+                                        <Image className={styles.albumArt} src={closestTracks.danceability?.album_art}></Image>
                                     </div>
 
                                     <div className={styles.spotifyButton}>
@@ -387,9 +395,9 @@ function Profile() {
                                     </div>     
 
                                     <div className={styles.artContent}>
-                                        {/* HARDCODED IMG FOR TESTING PURPOSES FOR WHEN ONE HAS NO FURNITURE PIECE /}
-                                        {/*<img src='/images/apt_images/livingroom/living-0.50-0.64.png' className={styles.pixelLivingRoom} alt='apt_image'></img> */}
-                                        <img src={selectedImages.danceability} className={styles.pixelLivingRoom} alt='apt_image'></img> 
+                                        {/* HARDCODED Image FOR TESTING PURPOSES FOR WHEN ONE HAS NO FURNITURE PIECE /}
+                                        {/*<Image src='/images/apt_images/livingroom/living-0.50-0.64.png' className={styles.pixelLivingRoom} alt='apt_image'></Image> */}
+                                        <Image src={selectedImages.danceability} className={styles.pixelLivingRoom} alt='apt_image'></Image> 
                                     </div>                                
                                 </div>
                             </div>
@@ -399,7 +407,7 @@ function Profile() {
                         <div className={styles.statsBox}>
                             <picture>
                                 <source media="(max-width: 650px)" srcset={stylesList.mobileStatsBoxImageSrc}></source>
-                                <img src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></img>
+                                <Image src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></Image>
                             </picture>
 
                             <div className={styles.statsBoxHeader}>
@@ -427,7 +435,7 @@ function Profile() {
                                         <p className={styles.songCloseDetails} style={{color: stylesList.textColor}}>
                                             {truncateString(closestTracks.valence?.track_name, 23)} By: {truncateString(closestTracks.valence?.artist_names?.join(', '), 18)} 
                                         </p>
-                                        <img className={styles.albumArt} src={closestTracks.valence?.album_art}></img>
+                                        <Image className={styles.albumArt} src={closestTracks.valence?.album_art}></Image>
                                     </div>
                                     
                                     <div className={styles.spotifyButton}>
@@ -435,7 +443,7 @@ function Profile() {
                                     </div>
 
                                     <div className={styles.artContent}>
-                                        <img className={styles.pixelWallFloor} src={selectedImages.valence} alt='apt_image'></img> 
+                                        <Image className={styles.pixelWallFloor} src={selectedImages.valence} alt='apt_image'></Image> 
                                     </div>                                
                                 </div>
                             </div>
@@ -445,7 +453,7 @@ function Profile() {
                         <div className={styles.statsBox}>
                             <picture>
                                 <source media="(max-width: 650px)" srcset={stylesList.mobileStatsBoxImageSrc}></source>
-                                <img src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></img>
+                                <Image src={stylesList.statsBoxImageSrc} alt="statsBox" className={styles.statsBoxImage}></Image>
                             </picture>
 
                             <div className={styles.statsBoxHeader}>
@@ -473,7 +481,7 @@ function Profile() {
                                         <p className={styles.songCloseDetails} style={{color: stylesList.textColor}}>
                                             {truncateString(closestTracks.energy?.track_name, 23)} By: {truncateString(closestTracks.energy?.artist_names?.join(', '), 18)} 
                                         </p>
-                                        <img className={styles.albumArt} src={closestTracks.energy?.album_art}></img> 
+                                        <Image className={styles.albumArt} src={closestTracks.energy?.album_art}></Image> 
                                     </div>
 
                                     <div className={styles.spotifyButton}>
@@ -481,7 +489,7 @@ function Profile() {
                                     </div>
 
                                     <div className={styles.artContent}>
-                                                <img className={styles.pixelLighting} src={energyIcon} alt='apt_image'></img> 
+                                        <Image className={styles.pixelLighting} src={energyIcon} alt='apt_image'></Image> 
                                     </div>
                                 </div>
                             </div>
@@ -504,13 +512,13 @@ function Profile() {
                             </div>
 
                             <div className={styles.pixelBorder} style={{ color: stylesList.borderColor, backgroundColor: mode === 'day' ? '#FFFCED' : '#0F212E'}}>
-                                <img className={styles.pixelFinal} src={selectedImages.valence} alt={`wallfloor`}></img>
-                                <img className={styles.pixelFinal} src={selectedImages.danceability} alt={`livingroom`}></img>
-                                <img className={styles.pixelFinal} src={selectedImages.acousticness} alt={`bedroom`}></img>
-                                <img className={styles.pixelFinal} src={selectedImages.liveness} alt={`kitchen`}></img>
-                                <img className={styles.pixelFinal} src={selectedImages.instrumentalness} alt={`entrance`}></img>
-                                <img className={styles.pixelFinal} src={selectedImages.speechiness} alt={`office`}></img>
-                                <img className={styles.pixelFinal} src={selectedImages.energy} style={{mixBlendMode: 'multiply', opacity: energyOpacity}} alt={`lighting`}></img>
+                                <Image className={styles.pixelFinal} src={selectedImages.valence} alt={`wallfloor`}></Image>
+                                <Image className={styles.pixelFinal} src={selectedImages.danceability} alt={`livingroom`}></Image>
+                                <Image className={styles.pixelFinal} src={selectedImages.acousticness} alt={`bedroom`}></Image>
+                                <Image className={styles.pixelFinal} src={selectedImages.liveness} alt={`kitchen`}></Image>
+                                <Image className={styles.pixelFinal} src={selectedImages.instrumentalness} alt={`entrance`}></Image>
+                                <Image className={styles.pixelFinal} src={selectedImages.speechiness} alt={`office`}></Image>
+                                <Image className={styles.pixelFinal} src={selectedImages.energy} style={{mixBlendMode: 'multiply', opacity: energyOpacity}} alt={`lighting`}></Image>
                             </div>
                         </div>
 
@@ -533,4 +541,4 @@ function Profile() {
     );
 }
 
-export default Profile;
+export default Main;

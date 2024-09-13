@@ -1,12 +1,44 @@
-from flask import Flask, jsonify, redirect, request, session
+from flask import Flask, jsonify, redirect, request, session, send_from_directory
 from flask_cors import CORS
 from repositories import spotify_repo
 from requests import get, post
-import math
+from dotenv import load_dotenv
+import os
+import sys
+import logging
 
-app = Flask(__name__)
-app.secret_key = 'lol'
-CORS(app, supports_credentials=True)
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+
+
+load_dotenv()
+
+app = Flask(__name__, static_folder='./.next',static_url_path='')
+app.secret_key = os.getenv('SECRET_KEY')
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    new_path = request.path[1:]
+    if os.path.exists(app.static_folder + '/server/pages/' + new_path + '.html'):
+        return send_from_directory(app.static_folder + '/server/pages',f'{new_path}.html')
+    else:
+        return send_from_directory(app.static_folder + '/server/pages', 'index.html')
+
+@app.route('/_next/static/<path:path>')
+def serve_static_files(path):
+    return send_from_directory(app.static_folder + '/static', path)
+
+@app.route('/images/<path:path>')
+def serve_images(path):
+    return send_from_directory('public/images', path)
+
+@app.errorhandler(404)
+def not_found(e):
+    new_path = request.path[1:]
+    print(f"this is the path from error:_{request.path}", flush=True)
+    sys.stdout.flush()
+    return send_from_directory(app.static_folder + '/server/pages', f'{new_path}.html')
 
 @app.get('/login')
 def login():
@@ -18,7 +50,7 @@ def callback():
     auth_code = request.args.get('code')
     token = spotify_repo.get_token(auth_code)
     session['token'] = token
-    return redirect('http://localhost:3000/profile')
+    return redirect('/main')
 
 @app.get('/profile')
 def profile():
@@ -35,7 +67,7 @@ def profile():
 def logout():
     session.clear()
     response = jsonify(message="Logged out successfully")
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Origin', 'https://studiofy-01b981afc50a.herokuapp.com/')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
 
@@ -159,4 +191,5 @@ def get_user_top_tracks():
         })
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    PORT = int(os.environ.get('PORT',5000))
+    app.run(host='0.0.0.0',port=PORT)

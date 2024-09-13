@@ -3,12 +3,14 @@ import styles from "../styles/login_page.module.css";
 import RandomizeLoginApt from './api/RandomizeLoginApt';
 import { DayNightContext } from './api/DayNightMode';
 import DayNightToggleButton from "./api/DayNightToggleButton";
+import Image from 'next/image';
+import Link from 'next/link'
 
 function Index() {
 
   // Login Handler
   const handleLogin = () => {
-    window.location.href = 'http://localhost:5000/login';
+    window.location.href = 'https://studiofy-01b981afc50a.herokuapp.com/login';
   }
 
   // Image Randomizer GET
@@ -53,27 +55,27 @@ function Index() {
         <DayNightToggleButton></DayNightToggleButton>
 
           <div className={styles.mainWindow}>
-            <img src={stylesList.bgTallWindowImageSrc} alt='Tall Background Window' className={styles.bgWindowTall}></img>
-            <img src={stylesList.bgWideWindowImageSrc} alt='Wide Background Window' className={styles.bgWindowWide}></img>
-            <img src={stylesList.bgSquareWindowImageSrc} alt='Square Background Window' className={styles.bgWindowSquare}></img>
+            <Image width={100} height={100} src={stylesList.bgTallWindowImageSrc} alt='Tall Background Window' className={styles.bgWindowTall}></Image>
+            <Image width={100} height={100} src={stylesList.bgWideWindowImageSrc} alt='Wide Background Window' className={styles.bgWindowWide}></Image>
+            <Image width={100} height={100} src={stylesList.bgSquareWindowImageSrc} alt='Square Background Window' className={styles.bgWindowSquare}></Image>
 
-            <img src={stylesList.loginPageImageSrc} alt='Main Window' className={styles.mainWindowImage}></img>
+            <Image width={755} height={633} src={stylesList.loginPageImageSrc} alt='Main Window' className={styles.mainWindowImage}></Image>
 
             <div className={styles.pixelborder}>
-              <img className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} src={aptImages.randomAptWallFloor} alt='apt_wallfloor'></img>
-              <img className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{animationDelay: "0.1s"}} src={aptImages.randomAptLivingRoom} alt='apt_living'></img>
-              <img className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{animationDelay: "0.2s"}} src={aptImages.randomAptBedroom} alt='apt_bedroom'></img>
-              <img className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{animationDelay: "0.3s"}} src={aptImages.randomAptKitchen} alt='apt_kitchen'></img>
-              <img className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{animationDelay: "0.4s"}} src={aptImages.randomAptEntrance} alt='apt_entrance'></img>
-              <img className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{animationDelay: "0.5s"}} src={aptImages.randomAptOffice} alt='apt_office'></img>
-              <img className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{mixBlendMode: "multiply"}} src={aptImages.randomAptLighting} alt='apt_lighting'></img>
+              <Image width={1024} height={722} className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} src={aptImages.randomAptWallFloor} alt='apt_wallfloor'></Image>
+              <Image width={1024} height={722} className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{animationDelay: "0.1s"}} src={aptImages.randomAptLivingRoom} alt='apt_living'></Image>
+              <Image width={1024} height={722} className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{animationDelay: "0.2s"}} src={aptImages.randomAptBedroom} alt='apt_bedroom'></Image>
+              <Image width={1024} height={722} className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{animationDelay: "0.3s"}} src={aptImages.randomAptKitchen} alt='apt_kitchen'></Image>
+              <Image width={1024} height={722} className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{animationDelay: "0.4s"}} src={aptImages.randomAptEntrance} alt='apt_entrance'></Image>
+              <Image width={1024} height={722} className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{animationDelay: "0.5s"}} src={aptImages.randomAptOffice} alt='apt_office'></Image>
+              <Image width={1024} height={722} className={`${styles.pixel} ${switchAnimation ? styles.switch : styles.drop}`} style={{mixBlendMode: "multiply"}} src={aptImages.randomAptLighting} alt='apt_lighting'></Image>
             </div>
           </div>
           
 
           <div className={styles.sideContainer}>
-            <img src='images/studiofyText.png' className={styles.studiofyText} alt='Studiofy'></img>
-            <button className={styles.loginButton} onClick={handleLogin}><img src='images/loginButton.png' className={styles.loginButton} alt='Login Button'></img></button>
+            <Image width={650} height={300} src='/images/studiofyText.png' className={styles.studiofyText} alt='Studiofy'></Image>
+            <button className={styles.loginButton} onClick={handleLogin}><Image width={480} height={85} src='/images/loginButton.png' className={styles.loginButton} alt='Login Button'></Image></button>
           </div>
       
 
@@ -82,12 +84,13 @@ function Index() {
 
         <footer className={styles.footer}>
             <div className={styles.footerOptionsContainer}>
-              <a className={styles.footerOptions}  href='/about'>ABOUT</a>
-              <a className={styles.footerOptions}  href='/privacy'>PRIVACY</a>
+              <Link className={styles.footerOptions} href='https://studiofy-01b981afc50a.herokuapp.com/about'>ABOUT</Link>
+              <Link className={styles.footerOptions} href='https://studiofy-01b981afc50a.herokuapp.com/privacy'>PRIVACY</Link>
+              <Link className={styles.footerOptions} href='https://studiofy-01b981afc50a.herokuapp.com/main'>MAIN TEST</Link>
             </div>
 
             <a href= "mailto: studiofy.team@gmail.com" className={styles.footerEmail}>
-              <img className={styles.emailIcon} src='images/blackMail.png' alt='Mail Icon'></img>STUDIOFY.TEAM@GMAIL.COM
+              <Image width={36} height={36} className={styles.emailIcon} src='/images/blackMail.png' alt='Mail Icon'></Image>STUDIOFY.TEAM@GMAIL.COM
             </a>
         </footer>
       </div>
